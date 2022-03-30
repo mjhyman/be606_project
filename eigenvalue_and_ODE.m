@@ -43,36 +43,6 @@ HR3off_tend = find_tend(HR3_off);
 HR4on_tend = find_tend(HR4_on);
 HR4off_tend = find_tend(HR4_off);
 
-%% Separate HR for each exercise
-%{
-% Exercise 2
-HR2_ton = HR2_on(1:HR2on_tend,1);       % time array during exercise
-HR2_toff = HR2_on(1:HR2off_tend,1);     % time array during rest
-HR2_toff = HR2_toff + HR2_ton(end);     % Add time offset to rest time array
-HR2_t = [HR2_ton; HR2_toff];            % concatenate time vectors
-HR2 = HR2_on(1:HR2on_tend,2);           % find HR during exercise (on)
-HR2 = [HR2; HR2_off(1:HR2off_tend,2)];  % find HR during rest (off)
-figure; scatter(HR2_t, HR2);
-
-% Exercise 3
-HR3_ton = HR3_on(1:HR3on_tend,1);
-HR3_toff = HR3_on(1:HR3off_tend,1);
-HR3_toff = HR3_toff + HR3_ton(end);
-HR3_t = [HR3_ton; HR3_toff];
-HR3 = HR3_on(1:HR3on_tend,2);
-HR3 = [HR3; HR3_off(1:HR3off_tend,2)];
-% figure; scatter(HR3_t, HR3);
-
-% Exercise 4
-HR4_ton = HR4_on(1:HR4on_tend,1);
-HR4_toff = HR4_on(1:HR4off_tend,1);
-HR4_toff = HR4_toff + HR4_ton(end);
-HR4_t = [HR4_ton; HR4_toff];
-HR4 = HR4_on(1:HR4on_tend,2);
-HR4 = [HR4; HR4_off(1:HR4off_tend,2)];
-% figure; scatter(HR4_t, HR4);
-%}
-
 %% HR for each exercise
 % Exercise 2
 a = HR2_on;
