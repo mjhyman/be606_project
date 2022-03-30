@@ -75,14 +75,14 @@ HR4 = [HR4; HR4_off(1:HR4off_tend,2)];
 
 %% HR for each exercise
 % Exercise 2
-a = HR2_on;
-b = HR2_off;
+a = HR2on_tend
+b = HR2on_tend
 % Exercise 3
-c = HR3_on;
-d = HR3_off;
+c = importdata(fullfile(wkdir, 'Exercise C.txt'));
+d = importdata(fullfile(wkdir, 'Exercise D.txt'));
 % Exercise 4
-e = HR4_on;
-f = HR4_off;
+e = importdata(fullfile(wkdir, 'Exercise E.txt'));
+f = importdata(fullfile(wkdir, 'Exercise F.txt'));
 
 %resize matrix to remove zeros
 at = a(1:962,1);
@@ -139,7 +139,7 @@ plot(t_off, HR2off_fit, 'LineWidth', 3);
 %%% Overlay the raw data for exercise 2
 scatter(ex2t, ex2hr);
 
-%%% plot features
+% plot features
 xlabel('Time (s)','FontSize',14);
 ylabel('Heart Rate (bpm)','FontSize',14);
 title('Exercise 2 - Fitted ODE');
@@ -166,10 +166,6 @@ plot(t_on, HR3on_fit, 'LineWidth', 3); hold on;
 % Overlay OFF state
 plot(t_off, HR3off_fit, 'LineWidth', 3);
 
-%%% Overlay the raw data for exercise 3
-scatter(ex3t, ex3hr);
-
-%%% plot features
 xlabel('Time (s)','FontSize',14);
 ylabel('Heart Rate (bpm)','FontSize',14);
 title('Exercise 3 - Fitted ODE');
@@ -196,10 +192,6 @@ plot(t_on, HR4on_fit, 'LineWidth', 3); hold on;
 % Overlay OFF state
 plot(t_off, HR4off_fit, 'LineWidth', 3);
 
-%%% Overlay the raw data for exercise 4
-scatter(ex4t, ex4hr);
-
-%%% plot features
 xlabel('Time (s)','FontSize',14);
 ylabel('Heart Rate (bpm)','FontSize',14);
 title('Exercise 4 - Fitted ODE');
