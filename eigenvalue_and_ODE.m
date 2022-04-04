@@ -177,7 +177,7 @@ grid on;
 xlim([t_on(1), t_off(end)]);
 
 %% Eigenvalue 2
-%{
+
 % Define constants (non-normalized)
 A = 3.217e-8;   % ( (beats/min)^(-3.38) ) / minute
 B = 1.63;       % slope for leaving/approaching HR_min (dimensionless)
@@ -187,21 +187,34 @@ E = 1.0;        % gives plateu shape (dimensionless)
 HRmin = 40;
 HRmax = 185;
 
-%%% Define D(v) between min/max HR
+%%% Plot L2 for [HRmin < D(v) < HRmax] w/ optimal parameters
 D = linspace(HRmin, HRmax, 100);
 % Define eigenvalue for HRmin < D < HRmax
 Lbound = -A.*((D-HRmin).^B).*((HRmax-D)).^C;
 % Plot eigenvalue
 figure;
-plot(D, Lbound);
-xlabel('Oxygen Demand (D)');
-ylabel('Eigenvalue');
-title({'Eigenvalue','HRmin < D < HRmax'});
+plot(D, Lbound, 'LineWidth',3);
+xlim([HRmin, HRmax]); grid on;
+xlabel('Oxygen Demand (beats per minute)');
+ylabel('Eigenvalue Magnitude');
+title({'Eigenvalue \lambda_2','HRmin < D(v) < HRmax'});
 
-%%% Define D(v) > max HR
+%%% Plot L2 for [HRmin < D(v) < HRmax] w/ modified B,C
+B = B + 0.1*B;       % slope for leaving/approaching HR_min (dimensionless)
+C = C + 0.1*C;       % slope for approaching/leaving HR_max (dimensionless)
+% Define eigenvalue for HRmin < D < HRmax
+Lbound = -A.*((D-HRmin).^B).*((HRmax-D)).^C;
+% Plot eigenvalue
+hold on; plot(D, Lbound,'r', 'LineWidth',3);
+legend({'Optimal Parameters','B+10%, C+10%'},'FontSize',15)
+set(gca,'FontSize',15)
+
+%%% Plot Eigenvalue for D(v) > HRmax
+%{
 D = linspace(HRmax, (HRmax+10), 100);
 % Define eigenvalue for D > HRmax
 Lunbound = -A.*((D-HRmin).^B).*((HRmax-D)).^C;
+Labove = ((D - HRmax).^C) .* cos(C.*pi);
 % Define real and imaginary components
 Lreal = real(Lunbound);
 Limag = imag(Lunbound);
@@ -210,14 +223,9 @@ figure;
 scatter(Lreal, Limag, 'g*');
 xlabel('Real');
 ylabel('Imaginary');
-title({'Eigenvalue','D > HRmax'});
+title({'Eigenvalue \lambda_2','D(v) > HRmax'});
+%}
 
-% Plot eigenvalue
-% figure;
-% plot(D, Lunbound);
-% xlabel('Oxygen Demand (D)');
-% ylabel('Eigenvalue');
-% title({'Eigenvalue','D > HRmax'});
 %}
 %% Define ODE
 function [dhrdt] = odeFun(~, x, D)
