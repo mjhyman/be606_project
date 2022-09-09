@@ -239,7 +239,7 @@ HRmin = 40;
 HRmax = 185;
 
 % Define constants (non-normalized)
-A = 3.217e-8;   % ( (beats/min)^(-3.38) ) / minute
+A = 3.417e-8;   % ( (beats/min)^(-3.38) ) / minute
 B = 1.63;       % slope for leaving/approaching HR_min (dimensionless)
 C = 1.75;       % slope for approaching/leaving HR_max (dimensionless)
 E = 1.0;        % gives plateu shape (dimensionless)
